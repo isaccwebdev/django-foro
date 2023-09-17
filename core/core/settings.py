@@ -40,7 +40,8 @@ DJANGO_APPS = [
     
 ]
 PROJECT_APPS = [
- 
+    "apps.blogs",
+    "apps.users"
 ]
 THIRD_PARTY_APPS = [
     'corsheaders',
@@ -48,7 +49,31 @@ THIRD_PARTY_APPS = [
 ]
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
+#Para conectar el frontend en react 
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:8000',
+]
+#Para permitir la peticion desde dominios distintos
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+]
+if not DEBUG:
+    #Para conectar el frontend en react 
+    CORS_ORIGIN_WHITELIST = [
+        'miblogenpythondjango.site',
+        'miblogenpythondjango.site',
+    ]
+    #Para permitir la peticion desde dominios distintos
+    CSRF_TRUSTED_ORIGINS = [
+        'miblogenpythondjango.site',
+        'miblogenpythondjango.site',
+    ]
+  
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', #Para poder conectar a React
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
